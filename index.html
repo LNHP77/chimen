@@ -66,6 +66,9 @@
         steth:
           '<path d="M6 3v5a5 5 0 0 0 10 0V3"/><path d="M11 13v2a4 4 0 0 0 8 0v-2"/><circle cx="19" cy="11" r="2"/>',
         bus: '<rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16"/><circle cx="8" cy="19.5" r="1.5"/><circle cx="16" cy="19.5" r="1.5"/>',
+        brief:
+          '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M3 13h18"/>',
+        pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
         hall: '<path d="M3 9l9-5 9 5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20h18"/>',
         speaker:
           '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/>',
@@ -210,6 +213,28 @@
             fr: "Vous faites une démarche à la mairie.",
           },
         },
+        {
+          id: "emploi",
+          kr: "Misyon lokal",
+          fr: "À la Mission locale",
+          col: "job",
+          icon: "brief",
+          intro: {
+            kr: "Ou ka chèché on travay.",
+            fr: "Vous cherchez un emploi.",
+          },
+        },
+        {
+          id: "dehors",
+          kr: "Trouvé chimen",
+          fr: "Se repérer dehors",
+          col: "geo",
+          icon: "pin",
+          intro: {
+            kr: "Ou dèyò é fò ou trouvé chimen a'w.",
+            fr: "Vous êtes dehors et devez trouver votre chemin.",
+          },
+        },
       ];
       const DOC =
         "Bonjour, ici le cabinet du docteur Bellance. Votre rendez-vous de mardi est déplacé au jeudi 15 octobre, à 10 heures 30. Merci de rappeler le cabinet si vous n'êtes pas disponible.";
@@ -217,6 +242,8 @@
         "Bonjou, sé Mari. Bis-la an rita, kidonk an ké rivé lakay a'w vè twazè di laprémidi. Pa bliyé achté pen, souplé !";
       const MERI =
         "La mairie est ouverte du lundi au vendredi, de 8 heures à midi et de 14 heures à 17 heures. Elle est fermée le mercredi après-midi et le samedi.";
+      const MLOC =
+        "Bonjour, ici la Mission locale. Votre rendez-vous avec votre conseillère est fixé au lundi 19 octobre à 14 heures. Pensez à apporter votre CV et votre pièce d'identité.";
       const ITEMS = {
         mache: [
           {
@@ -513,6 +540,162 @@
               kr: "Ranpli fòmilè-la. Ou pé envanté si ou vlé.",
               fr: "Remplissez le formulaire. Vous pouvez inventer si vous préférez.",
             },
+          },
+        ],
+        emploi: [
+          {
+            id: "e1",
+            rec: "E1",
+            skill: "oralFR",
+            audio: { lang: "fr", text: MLOC },
+            q: {
+              kr: "Kouté mésaj-la. Kisa ou ka mennen o randévou-la ?",
+              fr: "Écoutez le message. Que devez-vous apporter au rendez-vous ?",
+            },
+            opts: [
+              ["Votre CV et votre pièce d'identité", 1],
+              ["Une photo et un chèque", 0],
+              ["Rien du tout", 0],
+            ],
+          },
+          {
+            id: "e2",
+            rec: "E2",
+            skill: "lecture",
+            stim: "offer",
+            q: {
+              kr: "Li anons-la. Konbyen lè travay pa simenn ?",
+              fr: "Lisez l'offre d'emploi. Combien d'heures par semaine faut-il travailler ?",
+            },
+            opts: [
+              ["5 heures", 0],
+              ["25 heures", 1],
+              ["35 heures", 0],
+            ],
+          },
+          {
+            id: "e3",
+            rec: "E3",
+            skill: "reperes",
+            stim: "offer",
+            q: {
+              kr: "A ki lè travay-la ka koumansé ? Chwazi bon révey-la.",
+              fr: "À quelle heure commence le travail ? Choisissez la bonne horloge.",
+            },
+            clock: true,
+            opts: [
+              [[11, 0], 0],
+              [[6, 0], 1],
+              [[9, 30], 0],
+              [[12, 30], 0],
+            ],
+          },
+          {
+            id: "e4",
+            rec: "E4",
+            skill: "calcul",
+            stim: "offer",
+            q: {
+              kr: "Yo ka péyé'w douz éwo pa lè, é ou ka travay senk lè pa jou. Konbyen ou ka gannyé pa jou ?",
+              fr: "Vous êtes payé 12 € de l'heure et vous travaillez 5 heures par jour. Combien gagnez-vous par jour ?",
+            },
+            opts: [
+              ["17 €", 0],
+              ["50 €", 0],
+              ["60 €", 1],
+              ["120 €", 0],
+            ],
+          },
+          {
+            id: "e5",
+            rec: "E5",
+            skill: "ecrit",
+            type: "text",
+            q: {
+              kr: "Ékri an fransé travay-la ou té ké enmé fè. Ékri jan ou pé.",
+              fr: "Écrivez en français le travail que vous aimeriez faire. Écrivez comme vous pouvez.",
+            },
+          },
+        ],
+        dehors: [
+          {
+            id: "r1",
+            rec: "R1",
+            skill: "reperes",
+            stim: "map",
+            q: {
+              kr: "Ou la, koté pwen-la « Vous êtes ici ». Ou ka gadé kafou-la. Ki batiman ki asi bò dwèt a'w ?",
+              fr: "Vous êtes au point « Vous êtes ici » et vous regardez vers le carrefour. Quel bâtiment est juste à votre droite ?",
+            },
+            opts: [
+              ["L'école", 1],
+              ["La pharmacie", 0],
+              ["L'église", 0],
+            ],
+          },
+          {
+            id: "r2",
+            rec: "R2",
+            skill: "oralFR",
+            audio: {
+              lang: "fr",
+              text: "Pour aller à la poste, allez tout droit jusqu'au carrefour. La poste est à droite, en face de l'église.",
+            },
+            stim: "map",
+            q: {
+              kr: "Kouté. Ola lapòs yé ?",
+              fr: "Écoutez. Où se trouve la poste ?",
+            },
+            opts: [
+              ["En face de l'église", 1],
+              ["À côté de la pharmacie", 0],
+              ["Derrière l'école", 0],
+            ],
+          },
+          {
+            id: "r3",
+            rec: "R3",
+            skill: "reperes",
+            stim: "map",
+            q: {
+              kr: "Ou vlé alé légliz. O kafou-la, ki bò ou ka touné ?",
+              fr: "Vous voulez aller à l'église. Au carrefour, de quel côté tournez-vous ?",
+            },
+            opts: [
+              ["À gauche", 1],
+              ["À droite", 0],
+              ["Je fais demi-tour", 0],
+            ],
+          },
+          {
+            id: "r4",
+            rec: "R4",
+            skill: "lecture",
+            stim: "signs",
+            q: {
+              kr: "Li pano-la. Pou alé lopital, ki bò ou ka pran ?",
+              fr: "Lisez le panneau. Pour aller à l'hôpital, de quel côté allez-vous ?",
+            },
+            opts: [
+              ["À gauche", 1],
+              ["À droite", 0],
+              ["Tout droit", 0],
+            ],
+          },
+          {
+            id: "r5",
+            rec: "R5",
+            skill: "calcul",
+            stim: "signs",
+            q: {
+              kr: "Ou ka maché san mèt pa minit. Sant-vil-la a senksan mèt. An konbyen minit ou ké rivé ?",
+              fr: "Vous marchez 100 mètres par minute. Le centre-ville est à 500 mètres. En combien de minutes y arrivez-vous ?",
+            },
+            opts: [
+              ["5 minutes", 1],
+              ["10 minutes", 0],
+              ["50 minutes", 0],
+            ],
           },
         ],
       };
@@ -815,12 +998,47 @@
  ${mk(125, 112, "A")}${mk(239, 112, "B")}${mk(61, 188, "C")}
  </svg>`;
       }
+      function mapSVG() {
+        const bld = (x, y, w, h, col, label, extra = "") =>
+          `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" style="fill:var(--${col}-soft);stroke:var(--${col})" stroke-width="2"/>${extra}<text x="${x + w / 2}" y="${y + h - 12}" text-anchor="middle" font-size="13" font-weight="700" font-family="Verdana,sans-serif" style="fill:var(--ink)">${label}</text>`;
+        return `<svg class="scene" viewBox="0 0 360 236" role="img" aria-label="Plan d'un carrefour. En haut à gauche l'église, en haut à droite la poste, en bas à gauche la pharmacie, en bas à droite l'école. Le point « Vous êtes ici » est en bas, sur la rue qui monte vers le carrefour.">
+ <rect width="360" height="236" rx="14" style="fill:var(--sky)"/>
+ <rect x="160" width="40" height="236" style="fill:var(--road)"/>
+ <rect y="88" width="360" height="40" style="fill:var(--road)"/>
+ <path d="M180 0v88M180 128v108M0 108h160M200 108h160" stroke-width="2" stroke-dasharray="10 9" style="stroke:var(--board-ink)"/>
+ ${bld(12, 12, 136, 64, "sun", "Église", '<path d="M77 22v22M69 30h16" stroke-width="4" stroke-linecap="round" style="stroke:var(--sun)"/>')}
+ ${bld(212, 12, 136, 64, "sea", "Poste", '<rect x="266" y="24" width="28" height="18" rx="2" fill="none" stroke-width="3" style="stroke:var(--sea)"/><path d="M266 26l14 9 14-9" fill="none" stroke-width="3" style="stroke:var(--sea)"/>')}
+ ${bld(12, 140, 136, 60, "leaf", "Pharmacie", '<path d="M74 148h8v8h8v8h-8v8h-8v-8h-8v-8h8z" style="fill:var(--leaf)"/>')}
+ ${bld(212, 140, 136, 60, "hib", "École", '<path d="M266 168l14-14 14 14z" style="fill:var(--hib)"/>')}
+ <path d="M180 196l-9 13h18z" style="fill:var(--accent)"/>
+ <circle cx="180" cy="218" r="9" style="fill:var(--accent);stroke:var(--surface)" stroke-width="3"/>
+ <text x="208" y="223" font-size="13" font-weight="700" font-family="Verdana,sans-serif" style="fill:var(--ink)">Vous êtes ici</text>
+ </svg>`;
+      }
+      function signsSVG() {
+        const t = (x, y, txt) =>
+          `<text x="${x}" y="${y}" text-anchor="middle" font-size="15" font-weight="700" font-family="Verdana,sans-serif" style="fill:var(--board-ink)">${txt}</text>`;
+        return `<svg class="scene" viewBox="0 0 360 220" role="img" aria-label="Panneau de direction : Plage 5 km tout droit, Hôpital 2 km à gauche, Centre-ville 500 m à droite.">
+ <rect width="360" height="220" rx="14" style="fill:var(--sky)"/>
+ <rect y="196" width="360" height="24" style="fill:var(--ground)"/>
+ <rect x="174" y="20" width="12" height="178" style="fill:var(--road)"/>
+ <path d="M120 22h120v40H120z M180 8l-14 14h28z" style="fill:var(--board)"/>${t(180, 48, "↑ Plage 5 km")}
+ <path d="M50 74h150v40H50l-26-20z" style="fill:var(--board)"/>${t(118, 100, "Hôpital 2 km")}
+ <path d="M160 128h150l26 20-26 20H160z" style="fill:var(--board)"/>${t(246, 154, "Centre-ville 500 m")}
+ </svg>`;
+      }
       function stim(it) {
         switch (it.stim) {
           case "market":
             return marketSVG();
           case "street":
             return streetSVG();
+          case "map":
+            return mapSVG();
+          case "signs":
+            return signsSVG();
+          case "offer":
+            return `<div class="paper"><div class="hd">Mission locale · Offre d'emploi n° 2026-148</div><p><b>Agent d'entretien (H/F)</b> · Baie-Mahault</p><p>25 heures par semaine, du lundi au vendredi, de 6 h à 11 h.</p><p>Salaire : 12 € de l'heure. Débutants acceptés.</p><p>Envoyer votre CV avant le 30 octobre 2026.</p></div>`;
           case "prices":
             return `<div class="stim"><div class="sign">Tomates<small>3 € le kilo</small></div><div class="sign">Bananes<small>2 € le kilo</small></div><div class="sign">Ignames<small>4 € le kilo</small></div></div>`;
           case "change":
@@ -1111,6 +1329,8 @@
             .join("\n");
         const m6 = sess.ans.m6?.value;
         if (m6) t += `\n\nÉcrit (description de l'image) : « ${m6} »`;
+        const e5 = sess.ans.e5?.value;
+        if (e5) t += `\nÉcrit (métier souhaité) : « ${e5} »`;
         const f = sess.ans.l4?.value;
         if (f)
           t += `\nFormulaire : ${FORM.map((x) => x.l.fr.split(" (")[0] + " = " + (f[x.id] || "—")).join(" ; ")}`;
@@ -1121,6 +1341,7 @@
           a = agg(sess),
           fromTrainer = !!S.view;
         const m6 = sess.ans.m6?.value,
+          e5 = sess.ans.e5?.value,
           f = sess.ans.l4?.value;
         return `<section class="screen">
   <div><span class="eyebrow">Bilan · ${new Date(sess.start).toLocaleDateString("fr-FR")}</span>${bi({ kr: "Bilan " + esc(sess.name), fr: "Bilan de " + esc(sess.name) }, "h1", "h")}</div>
@@ -1147,6 +1368,7 @@
      .map((x) => `<li>${x}</li>`)
      .join("")}</ul>
    ${m6 ? `<div><span class="eyebrow">Écrit · description de l'image</span><div class="sample">${esc(m6)}</div></div>` : ""}
+   ${e5 ? `<div><span class="eyebrow">Écrit · métier souhaité</span><div class="sample">${esc(e5)}</div></div>` : ""}
    ${f ? `<div><span class="eyebrow">Formulaire</span><div class="sample">${FORM.map((x) => esc(x.l.fr.split(" (")[0]) + " : " + esc(f[x.id] || "—")).join("\n")}</div></div>` : ""}
   </div>
   <div class="row">
@@ -1173,7 +1395,7 @@
        const d = SITS.filter(
          (x) => sitProgress(s, x.id).n === ITEMS[x.id].length,
        ).length;
-       return `<tr><td><b>${esc(s.name)}</b></td><td>${new Date(s.start).toLocaleDateString("fr-FR")}</td><td>${d} / 4</td><td><button class="btn ghost small" data-act="view" data-id="${s.id}">Voir le bilan</button></td></tr>`;
+       return `<tr><td><b>${esc(s.name)}</b></td><td>${new Date(s.start).toLocaleDateString("fr-FR")}</td><td>${d} / ${SITS.length}</td><td><button class="btn ghost small" data-act="view" data-id="${s.id}">Voir le bilan</button></td></tr>`;
      })
      .join("")}
   </tbody></table></div>
@@ -1281,7 +1503,7 @@
   <h1 class="about-title2">Chimen</h1>
  
    <p class="lead">Chimen (« chemin » en créole guadeloupéen) est un outil de repérage des compétences de base conçu pour accompagner les personnes en situation d'illettrisme ou d'apprentissage du français.</p>
-   <p class="note">Il évalue six compétences — compréhension orale en créole et en français, lecture, calcul, repères dans le temps et l'espace, écrit — à travers quatre situations de la vie quotidienne : le marché, le médecin, l'arrêt de bus et la mairie.</p>
+   <p class="note">Il évalue six compétences — compréhension orale en créole et en français, lecture, calcul, repères dans le temps et l'espace, écrit — à travers six situations de la vie quotidienne : le marché, le médecin, l'arrêt de bus, la mairie, la Mission locale et le repérage à l'extérieur.</p>
    <p class="note">Les données restent sur l'appareil du formateur. Aucune information personnelle n'est transmise sur Internet.</p>
    <button class="btn ghost small" data-act="contact">  Contactez-nous ${ic("next", 20)}</button>
   </div>
@@ -1290,13 +1512,13 @@
   <h1 class="about-title2">Contexte</h1>
  
    <p class="lead">Chimen (« chemin » en créole guadeloupéen) est un outil de repérage des compétences de base conçu pour accompagner les personnes en situation d'illettrisme ou d'apprentissage du français.</p>
-   <p class="note">Il évalue six compétences — compréhension orale en créole et en français, lecture, calcul, repères dans le temps et l'espace, écrit — à travers quatre situations de la vie quotidienne : le marché, le médecin, l'arrêt de bus et la mairie.</p>
+   <p class="note">Il évalue six compétences — compréhension orale en créole et en français, lecture, calcul, repères dans le temps et l'espace, écrit — à travers six situations de la vie quotidienne : le marché, le médecin, l'arrêt de bus, la mairie, la Mission locale et le repérage à l'extérieur.</p>
    <p class="note">Les données restent sur l'appareil du formateur. Aucune information personnelle n'est transmise sur Internet.</p>
    <button class="btn ghost small" data-act="contact">  Contactez-nous ${ic("next", 20)}</button>
   </div>
   <div class="stats">
     <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">Compétences évaluées</span></div>
-    <div class="stat"><span class="stat-num">4</span><span class="stat-lbl">Situations du quotidien</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-lbl">Situations du quotidien</span></div>
     <div class="stat"><span class="stat-num">2</span><span class="stat-lbl">Langues : créole &amp; français</span></div>
     <div class="stat"><span class="stat-num">100%</span><span class="stat-lbl">Données sur l'appareil</span></div>
   </div>
