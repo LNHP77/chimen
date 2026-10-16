@@ -63,6 +63,10 @@ img {
      --sea-soft: #e1eff4;
      --sun-soft: #e2be70;
      --hib-soft: #da8372;
+     --job: #2a2350;
+     --job-soft: #b3a6ec;
+     --geo: #0f3a3c;
+     --geo-soft: #6fd0c6;
      --ok: #2f7d3e;
      --warn: #b97a12;
      --low: #e97d6a;
@@ -118,6 +122,10 @@ img {
          --sea-soft: #16313b;
          --sun-soft: #3a2e14;
          --hib-soft: #3a1f1b;
+         --job: #b3a6ec;
+         --job-soft: #262044;
+         --geo: #6fd0c6;
+         --geo-soft: #103236;
          --ok: #6fc07c;
          --warn: #e8b04f;
          --low: #ef8571;
@@ -164,6 +172,10 @@ img {
      --sea-soft: #16313b;
      --sun-soft: #3a2e14;
      --hib-soft: #3a1f1b;
+     --job: #b3a6ec;
+     --job-soft: #262044;
+     --geo: #6fd0c6;
+     --geo-soft: #103236;
      --ok: #6fc07c;
      --warn: #e8b04f;
      --low: #ef8571;
@@ -640,6 +652,16 @@ img {
  [data-col="hib"] {
      --c: var(--hib);
      --cs: var(--hib-soft);
+ }
+
+ [data-col="job"] {
+     --c: var(--job);
+     --cs: var(--job-soft);
+ }
+
+ [data-col="geo"] {
+     --c: var(--geo);
+     --cs: var(--geo-soft);
  }
 
  .sits {
